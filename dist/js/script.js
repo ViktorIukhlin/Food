@@ -215,7 +215,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const message = {
         loading: 'Загрузка...',
         success: 'Спсибо! Скоро мы с вами свяжемся',
-        failure: ''
+        failure: 'Что то пошло не так...'
     }
 
 });
