@@ -208,5 +208,15 @@ window.addEventListener('DOMContentLoaded', () => {
         ".menu .container"
     ).render();
 
+    //Forms
+
+    const forms = document.querySelectorAll('form');
+
+    const message = {
+        loading: 'Загрузка...',
+        success: 'Спсибо! Скоро мы с вами свяжемся',
+        failure: ''
+    }
+
 });
 
