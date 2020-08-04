@@ -286,5 +286,9 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+    fetch('db.json')
+        .then('http://localhost:3000/menu')
+        .then(res => console.log(res));
 });
 
