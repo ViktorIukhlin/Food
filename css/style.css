@@ -751,7 +751,7 @@ a {
     list-style: none;
 }
 
-.dot {
+.dot{
     box-sizing: content-box;
     flex: 0 1 auto;
     width: 30px;
