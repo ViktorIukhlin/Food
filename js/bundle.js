@@ -216,6 +216,9 @@ function calc() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
+
+
 function cards() {
 
     class MenuCard {
@@ -259,22 +262,12 @@ function cards() {
         }
     }
 
-    getResource('http://localhost:3000/menu')
+    Object(_services_services__WEBPACK_IMPORTED_MODULE_0__["getResource"])('http://localhost:3000/menu')
         .then(data => {
             data.forEach(({ img, altimg, title, descr, price }) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
         });
-
-    async function getResource(url) {
-        let res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-
-        return await res.json();
-    }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (cards);
@@ -291,11 +284,13 @@ function cards() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.js");
+/* harmony import */ var _services_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/services */ "./js/services/services.js");
 
 
-function forms() {
 
-    const forms = document.querySelectorAll('form');
+function forms(formSelector, modalTimerId) {
+
+    const forms = document.querySelectorAll(formSelector);
 
     const message = {
         loading: 'img/form/spinner.svg',
@@ -306,18 +301,6 @@ function forms() {
     forms.forEach(item => {
         bingPostData(item);
     });
-
-    const postData = async (url, data) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-        });
-
-        return await res.json();
-    };
 
     function bingPostData(form) {
         form.addEventListener('submit', (e) => {
@@ -336,7 +319,7 @@ function forms() {
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            postData('http://localhost:3000/requests', json)
+            Object(_services_services__WEBPACK_IMPORTED_MODULE_1__["postData"])('http://localhost:3000/requests', json)
                 .then(data => {
                     console.log(data);
                     showThanksModal(message.success);
@@ -353,7 +336,7 @@ function forms() {
         const prevModalDialog = document.querySelector('.modal__dialog');
 
         prevModalDialog.classList.add('hide');
-        Object(_modal__WEBPACK_IMPORTED_MODULE_0__["openModal"])();
+        Object(_modal__WEBPACK_IMPORTED_MODULE_0__["openModal"])('.modal', modalTimerId);
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
@@ -368,7 +351,7 @@ function forms() {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            Object(_modal__WEBPACK_IMPORTED_MODULE_0__["closeModal"])();
+            Object(_modal__WEBPACK_IMPORTED_MODULE_0__["closeModal"])('.modal');
         }, 4000);
     }
 }
@@ -738,9 +721,48 @@ window.addEventListener('DOMContentLoaded', () => {
     Object(_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])();
     Object(_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
     Object(_modules_calc__WEBPACK_IMPORTED_MODULE_4__["default"])();
-    Object(_modules_forms__WEBPACK_IMPORTED_MODULE_5__["default"])();
+    Object(_modules_forms__WEBPACK_IMPORTED_MODULE_5__["default"])('form' ,modalTimerId);
     Object(_modules_slider__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
+
+
+/***/ }),
+
+/***/ "./js/services/services.js":
+/*!*********************************!*\
+  !*** ./js/services/services.js ***!
+  \*********************************/
+/*! exports provided: postData, getResource */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getResource", function() { return getResource; });
+
+const postData = async (url, data) => {
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: data
+    });
+
+    return await res.json();
+};
+
+async function getResource(url) {
+    let res = await fetch(url);
+
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
+
 
 
 /***/ })
