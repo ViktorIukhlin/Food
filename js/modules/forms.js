@@ -41,6 +41,7 @@ function forms(formSelector, modalTimerId) {
                     showThanksModal(message.failure);
                 }).finally(() => {
                     form.reset();
+                    statusMessage.remove();
                 });
         });
     }
@@ -65,7 +66,7 @@ function forms(formSelector, modalTimerId) {
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
             closeModal('.modal');
-        }, 4000);
+        }, 1000);
     }
 }
 export default forms;

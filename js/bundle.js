@@ -230,7 +230,7 @@ function cards() {
             this.price = price;
             this.classes = classes;
             this.parent = document.querySelector(parentSelector);
-            this.transfer = 27;
+            this.transfer = 60;
             this.changeToUAH();
         }
 
@@ -355,6 +355,7 @@ function forms(formSelector, modalTimerId) {
                     showThanksModal(message.failure);
                 }).finally(() => {
                     form.reset();
+                    statusMessage.remove();
                 });
         });
     }
@@ -379,7 +380,7 @@ function forms(formSelector, modalTimerId) {
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
             Object(_modal__WEBPACK_IMPORTED_MODULE_0__["closeModal"])('.modal');
-        }, 4000);
+        }, 1000);
     }
 }
 /* harmony default export */ __webpack_exports__["default"] = (forms);
@@ -413,7 +414,6 @@ __webpack_require__.r(__webpack_exports__);
         document.body.style.overflow = 'hidden';
         document.body.style.margin = '0 16px 0 0';
 
-        console.log(modalTimerId);
         if(modalTimerId){
             clearInterval(modalTimerId);
         }

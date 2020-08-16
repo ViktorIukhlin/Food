@@ -14,7 +14,6 @@
         document.body.style.overflow = 'hidden';
         document.body.style.margin = '0 16px 0 0';
 
-        console.log(modalTimerId);
         if(modalTimerId){
             clearInterval(modalTimerId);
         }
